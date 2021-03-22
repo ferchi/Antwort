@@ -3,15 +3,12 @@ package com.jfsb.antwort
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 
 class Registro : AppCompatActivity() {
 
@@ -32,7 +29,7 @@ class Registro : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_registro)
+        setContentView(R.layout.ly_registro)
 
         //Instanciar la base de datos
         oAuth = FirebaseAuth.getInstance()
@@ -75,8 +72,9 @@ class Registro : AppCompatActivity() {
                 val id = oAuth.currentUser.uid
 
                 Toast.makeText(applicationContext,"Registro completo",Toast.LENGTH_SHORT).show()
-                val intentRegistry = Intent(this, MainActivity::class.java).apply {}
+                val intentRegistry = Intent(this, LoginActivity::class.java).apply {}
                 startActivity(intentRegistry)
+                finish()
 
                 uDatabase.child("Users").child(id).setValue(map)
 

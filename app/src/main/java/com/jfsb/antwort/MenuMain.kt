@@ -1,4 +1,4 @@
-package com.jfsb.antwort
+ package com.jfsb.antwort
 
 import android.content.Context
 import android.content.Intent
@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.jfsb.antwort.navigation.*
 import com.jfsb.antwort.navigation.ClickListener
 
-class ProfileMain : AppCompatActivity() {
+class MenuMain : AppCompatActivity() {
 
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -43,7 +43,7 @@ class ProfileMain : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ly_profilemain)
+        setContentView(R.layout.ly_menumain)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigation_rv = findViewById(R.id.navigation_rv)
@@ -71,7 +71,7 @@ class ProfileMain : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         // # Profile Activity
-                        val intent = Intent(this@ProfileMain, DemoActivity::class.java)
+                        val intent = Intent(this@MenuMain, PerfilMain::class.java)
                         intent.putExtra("activityName", "Profile Activity")
                         startActivity(intent)
                         finish()

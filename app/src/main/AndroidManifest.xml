@@ -9,9 +9,10 @@
         android:roundIcon="@drawable/isotipo_t"
         android:supportsRtl="true"
         android:theme="@style/Theme.Antwort">
-        <activity android:name=".navigation.DemoActivity"></activity>
+        <activity android:name=".PerfilMain"></activity>
+        <activity android:name=".navigation.DemoActivity" />
         <activity
-            android:name=".ProfileMain"
+            android:name=".MenuMain"
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity android:name=".Registro" />
         <activity android:name=".LoginActivity">

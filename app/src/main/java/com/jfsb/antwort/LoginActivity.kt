@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
     private fun logUser(){
         mAuth.signInWithEmailAndPassword(txt_username,txt_password).addOnCompleteListener(){ task ->
             if(task.isSuccessful){
-                val intentProfile = Intent(this, ProfileMain::class.java).apply {}
+                val intentProfile = Intent(this, MenuMain::class.java).apply {}
                 startActivity(intentProfile)
                 finish()
             } else{

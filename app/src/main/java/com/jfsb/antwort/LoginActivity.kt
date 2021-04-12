@@ -12,13 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     //Declarar variables de los componentes
-    lateinit var tv_registro: TextView
-    lateinit var btn_iniciar: Button
-    lateinit var et_usernameLog: EditText
-    lateinit var et_passwordLog: EditText
+    private lateinit var tv_registro: TextView
+    private lateinit var btn_iniciar: Button
+    private lateinit var et_usernameLog: EditText
+    private lateinit var et_passwordLog: EditText
 
-    lateinit var txt_username:String
-    lateinit var txt_password:String
+    private lateinit var txt_username:String
+    private lateinit var txt_password:String
 
     private lateinit var mAuth:FirebaseAuth
 

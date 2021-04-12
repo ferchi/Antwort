@@ -14,6 +14,7 @@
         android:layout_height="200dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -22,6 +23,7 @@
             app:expandedTitleMarginBottom="20dp"
             app:expandedTitleMarginStart="15dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false"
             >
 
             <ImageView
@@ -48,6 +50,7 @@
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+                app:title=" @username"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,18 +68,18 @@
                     android:textStyle="bold"
                     android:gravity="right"
                     android:layout_gravity="right"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/rounded_corners_bl"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text=" @username"
+                    android:text="Estudiante"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:gravity="right"
                     android:layout_gravity="right"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@drawable/rounded_corners_bl"
                     />
             </LinearLayout>
 
@@ -90,7 +93,33 @@
         android:overScrollMode="never"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayoutTab">
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabTextAppearance="@style/CustomTabstyle"
+                android:background="@color/colorPrimary"
+                app:tabGravity="fill"
+                app:tabInlineLabel="true"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/white"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/viewPager"
+                android:layout_below="@+id/appBarLayoutTab"/>
+
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
     <de.hdodenhof.circleimageview.CircleImageView

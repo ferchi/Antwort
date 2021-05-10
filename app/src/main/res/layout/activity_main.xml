@@ -26,7 +26,7 @@
         android:ems="10"
         android:textColor="@color/white"
         android:hint="Correo"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

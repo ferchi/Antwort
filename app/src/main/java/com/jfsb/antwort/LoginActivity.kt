@@ -33,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
         et_usernameLog = findViewById(R.id.et_usernameLog)
         et_passwordLog = findViewById(R.id.et_passwordLog)
 
+        if(mAuth.currentUser!=null){
+            startApp()
+        }
 
         tv_registro.setOnClickListener {
             val intentRegistry = Intent(this, Registro::class.java).apply {}
@@ -56,12 +59,16 @@ class LoginActivity : AppCompatActivity() {
     private fun logUser(){
         mAuth.signInWithEmailAndPassword(txt_username,txt_password).addOnCompleteListener(){ task ->
             if(task.isSuccessful){
-                val intentProfile = Intent(this, MenuMain::class.java).apply {}
-                startActivity(intentProfile)
+                startApp()
                 finish()
             } else{
                 Toast.makeText(this,"Verificar los datos", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun startApp(){
+        val intentProfile = Intent(this, MenuMain::class.java).apply {}
+        startActivity(intentProfile)
     }
 }

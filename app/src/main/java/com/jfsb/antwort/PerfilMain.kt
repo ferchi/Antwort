@@ -2,14 +2,18 @@ package com.jfsb.antwort
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.jfsb.antwort.fragments.ConsultasFragment
 import com.jfsb.antwort.fragments.RecientesFragment
 import com.jfsb.antwort.fragments.RespuestasFragment
 import com.jfsb.antwort.fragments.adapters.ViewPagerAdapter
+import com.jfsb.antwort.navigation.DemoFragment
 import com.jfsb.antwort.perfilView.CircleImageViewBehavior
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.ly_perfilmain.*
@@ -19,6 +23,10 @@ class PerfilMain : AppCompatActivity() {
     lateinit var collapsingtoolbar:CollapsingToolbarLayout
     lateinit var appbar:AppBarLayout
     lateinit var imageView: CircleImageView
+    lateinit var fullname:TextView
+    lateinit var username:TextView
+
+    private lateinit var mAuth: FirebaseAuth
 
     var colorCode:Int = 0
 
@@ -33,6 +41,11 @@ class PerfilMain : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mAuth = FirebaseAuth.getInstance()
+
+        fullname_tv.text = "Nombre completo"
+        username_tv.text = mAuth.currentUser.displayName
+
 
         //Implementacion de las propiedades del FAB a un CircleImage
         val params = imageView.layoutParams as CoordinatorLayout.LayoutParams
@@ -55,4 +68,5 @@ class PerfilMain : AppCompatActivity() {
         tabs.getTabAt(1)!!.setIcon(R.drawable.ic_hearing_24)
         tabs.getTabAt(2)!!.setIcon(R.drawable.ic_question_24)
     }
+
 }

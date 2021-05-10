@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/isotipo_t"
         android:supportsRtl="true"
         android:theme="@style/Theme.Antwort">
-        <activity android:name=".PerfilMain"></activity>
+        <activity android:name=".post.CreateActivity"></activity>
+        <activity android:name=".PerfilMain" />
         <activity android:name=".navigation.DemoActivity" />
         <activity
             android:name=".MenuMain"

@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.jfsb.antwort.fragments.HomeFragment
 import com.jfsb.antwort.navigation.*
 import com.jfsb.antwort.navigation.ClickListener
 
@@ -81,7 +82,7 @@ class MenuMain : AppCompatActivity() {
                         val bundle = Bundle()
                         bundle.putString("fragmentName", "Home Fragment")
 
-                        val homeFragment = DemoFragment()
+                        val homeFragment = HomeFragment()
                         homeFragment.arguments = bundle
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.activity_main_content_id, homeFragment).commit()

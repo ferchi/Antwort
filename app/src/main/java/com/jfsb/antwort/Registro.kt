@@ -7,8 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.ly_registro.*
 
 class Registro : AppCompatActivity() {
 
@@ -49,10 +51,40 @@ class Registro : AppCompatActivity() {
 
             if(txtname.isNotEmpty()&&txtemail.isNotEmpty()&&txtpassword.isNotEmpty()){
                 if (txtpassword.length >= 6) {
-                    registrarUsuario()
+                    oAuth.createUserWithEmailAndPassword(txtemail,txtpassword).addOnCompleteListener(this){ task ->
+                        if (task.isSuccessful) {
+                            var map:HashMap<String, String> = HashMap<String, String>()
+                            map["fullname"] = fullnameIn.text.toString()
+                            map["username"] = usernameIn.text.toString()
+                            map["email"] = emailIn.text.toString()
+                            //map["password"] = passwordIn.text.toString()
+
+                            val id = oAuth.currentUser.uid
+
+                            val profile = UserProfileChangeRequest.Builder()
+                                .setDisplayName(txtname)
+                                .build()
+
+                            task.addOnSuccessListener {
+                                it.user!!.updateProfile(profile)
+                            }
+
+                            Toast.makeText(applicationContext,"Registro completo",Toast.LENGTH_SHORT).show()
+                            val intentRegistry = Intent(this, LoginActivity::class.java).apply {}
+                            startActivity(intentRegistry)
+                            finish()
+
+                            uDatabase.child("Users").child(id).setValue(map)
+
+
+                        } else {
+                            Toast.makeText(applicationContext,"No se pudo registrar este usuario "+task.result,Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
                 }
                 else {
-                    Toast.makeText(applicationContext,"El password debe ser de mínimo seis caracteres",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,"La contraseña debe ser de mínimo seis caracteres",Toast.LENGTH_SHORT).show()
                 }
             }
             else {
@@ -62,28 +94,7 @@ class Registro : AppCompatActivity() {
     }
 
     private fun registrarUsuario() {
-        oAuth.createUserWithEmailAndPassword(txtemail,txtpassword).addOnCompleteListener(this){ task ->
-            if (task.isSuccessful) {
-                var map:HashMap<String, String> = HashMap<String, String>()
-                map["name"] = txtname
-                map["email"] = txtemail
-                map["password"] = txtpassword
 
-                val id = oAuth.currentUser.uid
-
-                Toast.makeText(applicationContext,"Registro completo",Toast.LENGTH_SHORT).show()
-                val intentRegistry = Intent(this, LoginActivity::class.java).apply {}
-                startActivity(intentRegistry)
-                finish()
-
-                uDatabase.child("Users").child(id).setValue(map)
-
-
-            } else {
-                Toast.makeText(applicationContext,"No se pudo registrar este usuario 2",Toast.LENGTH_SHORT).show()
-            }
-
-        }
     }
 
 }

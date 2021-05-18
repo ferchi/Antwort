@@ -28,8 +28,7 @@ class ConsultasFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-            }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,7 +44,7 @@ class ConsultasFragment : Fragment() {
                 post.uid = value.documents[index].id
             }
 
-//           posts.add(2,Post("Texto donde se explica la duda que se tiene", Date(),"Username"))
+            //posts.add(2,Post("Texto donde se explica la duda que se tiene", Date(),"Username"))
 
             rev.apply {
                 setHasFixedSize(true)

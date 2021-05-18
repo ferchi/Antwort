@@ -22,11 +22,12 @@ class CreateActivity : AppCompatActivity() {
             val postString = postText.text.toString()
             val date = Date()
             val userName = auth.currentUser!!.displayName
+            val userId = auth.currentUser!!.uid
 
             Log.d("prueba",date.toString())
             Log.d("prueba",userName)
 
-            val post = Post(postString, date, userName)
+            val post = Post(postString, date, userName ,userId)
 
             db.collection("post").add(post)
                 .addOnSuccessListener {

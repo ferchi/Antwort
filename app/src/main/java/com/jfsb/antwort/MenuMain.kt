@@ -17,7 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.jfsb.antwort.fragments.HomeFragment
+import com.jfsb.antwort.fragments.FriendsFragment
 import com.jfsb.antwort.navigation.*
 import com.jfsb.antwort.navigation.ClickListener
 
@@ -34,7 +34,7 @@ class MenuMain : AppCompatActivity() {
 
     private var items = arrayListOf(
             NavigationItemModel(R.drawable.ic_profile, "Perfil"),
-            NavigationItemModel(R.drawable.ic_home, "Inicio"),
+            NavigationItemModel(R.drawable.ic_people_24, "Amigos"),
             NavigationItemModel(R.drawable.ic_music, "---"),
             NavigationItemModel(R.drawable.ic_movie, "---"),
             NavigationItemModel(R.drawable.ic_book, "---"),
@@ -73,19 +73,13 @@ class MenuMain : AppCompatActivity() {
                     0 -> {
                         // # Profile Activity
                         val intent = Intent(this@MenuMain, PerfilMain::class.java)
-                        intent.putExtra("activityName", "Profile Activity")
                         startActivity(intent)
-                        finish()
                     }
                     1 -> {
-                        // # Home Fragment
-                        val bundle = Bundle()
-                        bundle.putString("fragmentName", "Home Fragment")
-
-                        val homeFragment = HomeFragment()
-                        homeFragment.arguments = bundle
+                        // # Friends Fragment
+                        val friendsFragment = FriendsFragment()
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.activity_main_content_id, homeFragment).commit()
+                            .replace(R.id.activity_main_content_id, friendsFragment).commit()
                     }
                     2 -> {
                         // # Music Fragment
@@ -137,15 +131,12 @@ class MenuMain : AppCompatActivity() {
             }
         }))
         // Update Adapter with item data and highlight the default menu item ('Home' Fragment)
-        updateAdapter(0)
+        updateAdapter(1)
 
-        // Set 'Home' as the default fragment when the app starts
-        val bundle = Bundle()
-        bundle.putString("fragmentName", "Home Fragment")
-        val homeFragment = DemoFragment()
-        homeFragment.arguments = bundle
+        // Set 'Friends' as the default fragment when the app starts
+        val friendsFragment = FriendsFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.activity_main_content_id, homeFragment).commit()
+            .replace(R.id.activity_main_content_id, friendsFragment).commit()
 
 
         // Close the soft keyboard when you open or close the Drawer
@@ -183,8 +174,7 @@ class MenuMain : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
 
         toggle.syncState()
-
-
+        
         // Set Header Image
         navigation_header_img.setImageResource(R.drawable.logo)
 

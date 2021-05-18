@@ -3,6 +3,7 @@ package com.jfsb.antwort
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -14,20 +15,17 @@ import kotlinx.android.synthetic.main.ly_registro.*
 
 class Registro : AppCompatActivity() {
 
-    //Declarar variables de los componentes
-    lateinit var usernameIn: EditText
-    lateinit var emailIn: EditText
-    lateinit var passwordIn: EditText
-    lateinit var btnRegistro: Button
-
-    //Declarar variables que almacenaran el texto de los EditText
-    var txtname:String = ""
+    //Declarar variables que almacenarán el texto de los EditText
+    var txtusername:String = ""
     var txtemail:String = ""
     var txtpassword:String = ""
+    var txtname:String = ""
+
 
     //Declarar el objeto que será la instancia de la base de datos
     lateinit var oAuth:FirebaseAuth
-    lateinit var uDatabase:DatabaseReference
+    lateinit var userDB_ref:DatabaseReference
+    lateinit var userDB:FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,34 +33,42 @@ class Registro : AppCompatActivity() {
 
         //Instanciar la base de datos
         oAuth = FirebaseAuth.getInstance()
-        uDatabase = FirebaseDatabase.getInstance().reference
+        userDB = FirebaseDatabase.getInstance()
+        userDB_ref = userDB.getReference("Users")
 
-        //Instanciar los componentes del activity0
-        usernameIn = findViewById<EditText>(R.id.usernameIn)
-        emailIn = findViewById<EditText>(R.id.emailIn)
-        passwordIn = findViewById<EditText>(R.id.passwordIn)
-        btnRegistro = findViewById<Button>(R.id.btn_registro)
+        setSupportActionBar(toolbar_register)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "REGISTRO"
 
-        btnRegistro.setOnClickListener {
+        btn_registro.setOnClickListener {
 
-            txtname = usernameIn.text.toString()
+            txtusername = usernameIn.text.toString()
             txtemail = emailIn.text.toString()
             txtpassword = passwordIn.text.toString()
+            txtname = nameIn.text.toString()
 
-            if(txtname.isNotEmpty()&&txtemail.isNotEmpty()&&txtpassword.isNotEmpty()){
+            if(txtusername.isNotEmpty()&&txtemail.isNotEmpty()&&txtpassword.isNotEmpty()){
                 if (txtpassword.length >= 6) {
                     oAuth.createUserWithEmailAndPassword(txtemail,txtpassword).addOnCompleteListener(this){ task ->
                         if (task.isSuccessful) {
-                            var map:HashMap<String, String> = HashMap<String, String>()
-                            map["fullname"] = fullnameIn.text.toString()
-                            map["username"] = usernameIn.text.toString()
-                            map["email"] = emailIn.text.toString()
-                            //map["password"] = passwordIn.text.toString()
-
                             val id = oAuth.currentUser.uid
 
+                            //Mapeo de los datos del usuario
+                            var map:HashMap<String, String> = HashMap()
+
+                            map["uid"] = id
+                            map["name"] = txtname
+                            map["username"] = txtusername
+                            map["email"] = txtemail
+                            map["password"] = txtpassword
+                            map["imgProfile"] = ""
+                            map["imgBanner"] = ""
+
+                            userDB_ref.child(id).setValue(map)
+
+
                             val profile = UserProfileChangeRequest.Builder()
-                                .setDisplayName(txtname)
+                                .setDisplayName(txtusername)
                                 .build()
 
                             task.addOnSuccessListener {
@@ -73,9 +79,6 @@ class Registro : AppCompatActivity() {
                             val intentRegistry = Intent(this, LoginActivity::class.java).apply {}
                             startActivity(intentRegistry)
                             finish()
-
-                            uDatabase.child("Users").child(id).setValue(map)
-
 
                         } else {
                             Toast.makeText(applicationContext,"No se pudo registrar este usuario "+task.result,Toast.LENGTH_SHORT).show()
@@ -92,9 +95,7 @@ class Registro : AppCompatActivity() {
             }
         }
     }
-
-    private fun registrarUsuario() {
-
+    override fun onBackPressed() {
     }
 
 }

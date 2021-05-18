@@ -30,6 +30,10 @@ class PostAdapter (private val fragment: Fragment, private val dataset: List<Pos
     override fun getItemCount() = dataset.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if(dataset[position].userId.toString() == auth.currentUser.uid) {
+            
+        }
+
         val post =  dataset[position]
         val likes = post.likes!!.toMutableList()
         var liked = likes.contains(auth.uid)

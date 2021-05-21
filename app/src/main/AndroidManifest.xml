@@ -12,7 +12,10 @@
         android:roundIcon="@drawable/isotipo_t"
         android:supportsRtl="true"
         android:theme="@style/Theme.Antwort">
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".FriendActivity"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:parentActivityName=".MenuMain" />
         <activity android:name=".post.CreateActivity" />
         <activity
             android:name=".PerfilMain"

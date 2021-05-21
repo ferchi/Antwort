@@ -17,11 +17,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.jfsb.antwort.fragments.FriendsFragment
 import com.jfsb.antwort.navigation.*
 import com.jfsb.antwort.navigation.ClickListener
+import com.jfsb.antwort.post.Utils.openProfile
 
-class MenuMain : AppCompatActivity() {
+ class MenuMain : AppCompatActivity() {
 
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -35,7 +37,7 @@ class MenuMain : AppCompatActivity() {
     private var items = arrayListOf(
             NavigationItemModel(R.drawable.ic_profile, "Perfil"),
             NavigationItemModel(R.drawable.ic_people_24, "Amigos"),
-            NavigationItemModel(R.drawable.ic_music, "---"),
+            NavigationItemModel(R.drawable.ic_person_search_24, "Explorar"),
             NavigationItemModel(R.drawable.ic_movie, "---"),
             NavigationItemModel(R.drawable.ic_book, "---"),
             NavigationItemModel(R.drawable.ic_logout, "Salir"),
@@ -72,8 +74,7 @@ class MenuMain : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         // # Profile Activity
-                        val intent = Intent(this@MenuMain, PerfilMain::class.java)
-                        startActivity(intent)
+                        openProfile(FirebaseDatabase.getInstance().reference,"Users",mAuth.currentUser.uid,this@MenuMain,PerfilMain(),true)
                     }
                     1 -> {
                         // # Friends Fragment
@@ -82,13 +83,9 @@ class MenuMain : AppCompatActivity() {
                             .replace(R.id.activity_main_content_id, friendsFragment).commit()
                     }
                     2 -> {
-                        // # Music Fragment
-                        val bundle = Bundle()
-                        bundle.putString("fragmentName", "Music Fragment")
-                        val musicFragment = DemoFragment()
-                        musicFragment.arguments = bundle
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.activity_main_content_id, musicFragment).commit()
+                        // # Search Activity
+                        val intent = Intent(this@MenuMain, SearchActivity::class.java)
+                        startActivity(intent)
                     }
                     3 -> {
                         // # Movies Fragment

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,6 @@ import com.google.firebase.database.*
 import com.jfsb.antwort.R
 import com.jfsb.antwort.social.FriendAdapter
 import com.jfsb.antwort.social.FriendCard
-import kotlinx.android.synthetic.main.ly_fragment_friends.*
 
 class FriendsFragment: Fragment() {
 
@@ -24,6 +22,7 @@ class FriendsFragment: Fragment() {
     private val auth = FirebaseAuth.getInstance()
     private val friends: MutableList<FriendCard> = mutableListOf()
     private lateinit var friend:FriendCard
+    private var friensCount = 0
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -35,6 +34,9 @@ class FriendsFragment: Fragment() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                     val children = dataSnapshot.child("friends")!!.children
+                    friensCount = dataSnapshot.child("friends")!!.children.count()
+
+                    friends.clear()
 
                     children.forEach {
                         val uid = it.value
@@ -44,10 +46,11 @@ class FriendsFragment: Fragment() {
                                 val imageProfile = datatwo.child("imgProfile").value.toString()
                                 val username = datatwo.child("username").value.toString()
                                 val name = datatwo.child("name").value.toString()
+                                val id = datatwo.child("uid").value.toString()
 
-                                friend = FriendCard(imageProfile, username, name, uid.toString())
+                                friend = FriendCard(imageProfile, username, name, id)
 
-                                addFriend(2)
+                                listFriend()
                             }
                             override fun onCancelled(error: DatabaseError) {
                                 TODO("Not yet implemented")
@@ -56,24 +59,20 @@ class FriendsFragment: Fragment() {
                     }
                 }
                 override fun onCancelled(databaseError: DatabaseError) {
-
                 }
             })
 
         return view
     }
 
-    fun addFriend(limit:Int){
-        Log.d("friend",friends.size.toString())
-        Log.d("limit",limit.toString())
-
+    fun listFriend(limit:Int = friensCount){
         friends.add(friend)
 
         if(friends.size == limit){
             rev.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
-                adapter = FriendAdapter(this@FriendsFragment,friends)
+                adapter = FriendAdapter(friends)
             }
         }
     }

@@ -23,19 +23,17 @@
             app:expandedTitleMarginBottom="20dp"
             app:expandedTitleMarginStart="15dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="false"
-            >
+            app:titleEnabled="false">
 
             <ImageView
-                android:id="@+id/imgBanner"
+                android:id="@+id/imageBanner"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:contentDescription="@string/app_name"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/campo"
-                app:layout_collapseMode="parallax"
-                android:onClick="changeImg"/>
+                app:layout_collapseMode="parallax"/>
 
             <View
                 android:layout_width="match_parent"
@@ -71,18 +69,19 @@
                     android:background="@drawable/rounded_corners_bl"
                     android:id="@+id/fullname_tv"
                     />
+
                 <TextView
+                    android:id="@+id/username_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_marginTop="6dp"
+                    android:background="@drawable/rounded_corners_bl"
+                    android:gravity="right"
                     android:text="Estudiante"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:gravity="right"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rounded_corners_bl"
-                    android:id="@+id/username_tv"
-                    />
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -140,7 +139,6 @@
         app:layout_anchor="@id/appbarLayout"
         app:layout_anchorGravity="bottom|end|left"
         app:civ_circle_background_color="@color/black"
-        android:onClick="changeImg"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

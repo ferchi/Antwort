@@ -2,14 +2,19 @@ package com.jfsb.antwort.post
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SearchRecentSuggestionsProvider
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.jfsb.antwort.MenuMain
+import com.jfsb.antwort.PerfilMain
 import javax.security.auth.callback.Callback
 
 object Utils {
@@ -32,4 +37,31 @@ object Utils {
             }
         })
     }
+
+    fun openProfile(mDatabase:DatabaseReference, child:String, user:String, origen:Context, destino:AppCompatActivity, miperfil:Boolean) {
+
+        mDatabase.child(child).child(user).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val username = dataSnapshot.child("username").value.toString()
+                val name = dataSnapshot.child("name").value.toString()
+                val imgProfile = dataSnapshot.child("imgProfile").value.toString()
+                val imgBanner = dataSnapshot.child("imgBanner").value.toString()
+                val uid = dataSnapshot.child("uid").value.toString()
+
+                val intent = Intent(origen, destino::class.java).apply {
+                    putExtra("username",username)
+                    putExtra("name",name)
+                    putExtra("imgProfile",imgProfile)
+                    putExtra("imgBanner",imgBanner)
+                    putExtra("uid",uid)
+                    putExtra("miperfil",miperfil)
+                }
+                origen.startActivity(intent)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+    }
+
 }

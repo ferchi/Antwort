@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -43,20 +44,20 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="6dp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="12sp"
+                android:layout_marginTop="16dp"
+                android:autoLink="all"
                 android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/dark_semitransparent"
                 android:maxLines="2"
+                android:paddingLeft="6dp"
                 android:text="Nombre completo"
-                android:textSize="18sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageCard"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/dark_semitransparent"
-                android:autoLink="all"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/usernameCard"
@@ -72,14 +73,28 @@
                 android:autoLink="all"/>
 
             <ImageView
-                android:id="@+id/menu_card_icon"
+                android:id="@+id/usertype_card_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="uid"
+                android:src="@drawable/ic_student_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/post_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_arrow_down_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="posts"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/imageCard"
+                app:layout_constraintTop_toBottomOf="@+id/usernameCard" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

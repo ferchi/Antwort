@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tv_registro.setOnClickListener {
-            val intentRegistry = Intent(this, Registro::class.java).apply {}
+            val intentRegistry = Intent(this, RegistroActivity::class.java).apply {}
             startActivity(intentRegistry)
         }
 
@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun startApp(){
-        val intentProfile = Intent(this, MenuMain::class.java).apply {}
+        val intentProfile = Intent(this, MenuMainActivity::class.java).apply {}
         startActivity(intentProfile)
     }
 }

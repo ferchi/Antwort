@@ -89,8 +89,9 @@ class SearchActivity : AppCompatActivity() {
                     val username = it.child("username").value.toString()
                     val img = it.child("imgProfile").value.toString()
                     val id = it.child("uid").value.toString()
+                    val userType = it.child("usertype").value.toString()
 
-                    val modelFriendCard : FriendCard? = FriendCard(img,username,name,id)
+                    val modelFriendCard : FriendCard? = FriendCard(img,username,name,id,userType)
 
                     if(modelFriendCard?.fullName?.toLowerCase()?.contains(searchQuery?.toLowerCase().toString()) == true
                         || modelFriendCard?.userName?.toLowerCase()?.contains(searchQuery?.toLowerCase().toString()) == true){

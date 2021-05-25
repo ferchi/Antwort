@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
-    tools:context=".PerfilMain"
+    tools:context=".PerfilMainActivity"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -81,6 +81,15 @@
                     android:text="Estudiante"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/usertypeImg"
+                    android:src="@drawable/ic_teacher_24"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="6dp"
+                    />
 
             </LinearLayout>
 

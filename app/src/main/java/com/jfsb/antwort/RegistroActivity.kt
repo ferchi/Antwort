@@ -13,14 +13,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.ly_registro.*
 
-class Registro : AppCompatActivity() {
+class RegistroActivity : AppCompatActivity() {
 
     //Declarar variables que almacenarán el texto de los EditText
     var txtusername:String = ""
     var txtemail:String = ""
     var txtpassword:String = ""
     var txtname:String = ""
-
+    var txtusertype:String = ""
 
     //Declarar el objeto que será la instancia de la base de datos
     lateinit var oAuth:FirebaseAuth
@@ -39,6 +39,15 @@ class Registro : AppCompatActivity() {
         setSupportActionBar(toolbar_register)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "REGISTRO"
+
+        usertypeIn_sw.setOnCheckedChangeListener{_,isChecked ->
+            if (isChecked){
+                txtusertype = "maestro"
+            }
+            else{
+                txtusertype = "estudiante"
+            }
+        }
 
         btn_registro.setOnClickListener {
 
@@ -63,6 +72,7 @@ class Registro : AppCompatActivity() {
                             map["password"] = txtpassword
                             map["imgProfile"] = ""
                             map["imgBanner"] = ""
+                            map["usertype"] = txtusertype
 
                             userDB_ref.child(id).setValue(map)
 

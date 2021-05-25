@@ -15,17 +15,17 @@
         <activity android:name=".FriendActivity"></activity>
         <activity
             android:name=".SearchActivity"
-            android:parentActivityName=".MenuMain" />
+            android:parentActivityName=".MenuMainActivity" />
         <activity android:name=".post.CreateActivity" />
         <activity
-            android:name=".PerfilMain"
-            android:parentActivityName=".MenuMain" />
+            android:name=".PerfilMainActivity"
+            android:parentActivityName=".MenuMainActivity" />
         <activity android:name=".navigation.DemoActivity" />
         <activity
-            android:name=".MenuMain"
+            android:name=".MenuMainActivity"
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
-            android:name=".Registro"
+            android:name=".RegistroActivity"
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

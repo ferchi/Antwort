@@ -47,8 +47,9 @@ class FriendsFragment: Fragment() {
                                 val username = datatwo.child("username").value.toString()
                                 val name = datatwo.child("name").value.toString()
                                 val id = datatwo.child("uid").value.toString()
+                                val userType = datatwo.child("usertype").value.toString()
 
-                                friend = FriendCard(imageProfile, username, name, id)
+                                friend = FriendCard(imageProfile, username, name, id, userType)
 
                                 listFriend()
                             }

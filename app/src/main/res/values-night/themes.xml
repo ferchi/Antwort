@@ -23,4 +23,7 @@
         <item name="titleTextColor">@color/white</item>
     </style>
 
+    <style name="customSwitch">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
 </resources>

@@ -23,7 +23,7 @@ import com.jfsb.antwort.navigation.*
 import com.jfsb.antwort.navigation.ClickListener
 import com.jfsb.antwort.post.Utils.openProfile
 
- class MenuMain : AppCompatActivity() {
+ class MenuMainActivity : AppCompatActivity() {
 
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -74,7 +74,7 @@ import com.jfsb.antwort.post.Utils.openProfile
                 when (position) {
                     0 -> {
                         // # Profile Activity
-                        openProfile(FirebaseDatabase.getInstance().reference,"Users",mAuth.currentUser.uid,this@MenuMain,PerfilMain(),true)
+                        openProfile(FirebaseDatabase.getInstance().reference,"Users",mAuth.currentUser.uid,this@MenuMainActivity,PerfilMainActivity(),true)
                     }
                     1 -> {
                         // # Friends Fragment
@@ -84,7 +84,7 @@ import com.jfsb.antwort.post.Utils.openProfile
                     }
                     2 -> {
                         // # Search Activity
-                        val intent = Intent(this@MenuMain, SearchActivity::class.java)
+                        val intent = Intent(this@MenuMainActivity, SearchActivity::class.java)
                         startActivity(intent)
                     }
                     3 -> {

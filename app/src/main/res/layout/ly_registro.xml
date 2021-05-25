@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
-    tools:context=".Registro">
+    tools:context=".RegistroActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -78,6 +78,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailIn" />
 
+    <Switch
+        android:id="@+id/usertypeIn_sw"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordIn"
+        android:textOff = "Estudiante"
+        android:textOn = "Maestro"
+        android:showText="true"
+        android:theme="@style/customSwitch"/>
+
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="50dp"
@@ -85,7 +98,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordIn">
+        app:layout_constraintTop_toBottomOf="@+id/usertypeIn_sw">
 
         <Button
             android:id="@+id/btn_registro"

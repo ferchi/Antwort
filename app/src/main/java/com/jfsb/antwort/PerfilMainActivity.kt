@@ -26,10 +26,11 @@ import com.jfsb.antwort.fragments.RespuestasFragment
 import com.jfsb.antwort.fragments.adapters.ViewPagerAdapter
 import com.jfsb.antwort.perfilView.CircleImageViewBehavior
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.card_friend.view.*
 import kotlinx.android.synthetic.main.ly_perfilmain.*
 import java.io.ByteArrayOutputStream
 
-class PerfilMain : AppCompatActivity() {
+class PerfilMainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var appbar: AppBarLayout
 
@@ -47,7 +48,9 @@ class PerfilMain : AppCompatActivity() {
     lateinit var imgBannerS: String
     var miPerfil: Boolean = false
     lateinit var uidS: String
-    var friendsCount: Int = 0
+    lateinit var userType: String
+
+    var clickFollow : Boolean = false
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +63,11 @@ class PerfilMain : AppCompatActivity() {
         imgProfileS = intent.getStringExtra("imgProfile").toString()
         imgBannerS = intent.getStringExtra("imgBanner").toString()
         miPerfil = intent.getBooleanExtra("miperfil", false)
+        userType = intent.getStringExtra("usertype").toString()
+
+
+
+
 
         //Instancia de los elementos dentro del layout
         toolbar = findViewById(R.id.toolBarLayout)
@@ -85,18 +93,34 @@ class PerfilMain : AppCompatActivity() {
         loadImg()
         isFriend()
 
-        if (!miPerfil && mAuth.currentUser.uid != uidS) {
+        if (!miPerfil) {
             username_tv.setOnClickListener {
-                addFriend()
+                if(!clickFollow){
+                    Log.d("seguir", "añadir")
+                    addFriend()
+                    clickFollow = !clickFollow
+                } else {
+                    Log.d("seguir", "eliminar")
+                    removeFriend()
+                    clickFollow = !clickFollow
+                }
             }
         }
-        imageUser.setOnLongClickListener {
-            changeImg(it)
-        }
-        imageBanner.setOnLongClickListener {
-            changeImg(it)
+        else{
+            imageUser.setOnLongClickListener {
+                changeImg(it)
+            }
+            imageBanner.setOnLongClickListener {
+                changeImg(it)
+            }
         }
 
+        if(userType == "maestro"){
+            Picasso.get().load(R.drawable.ic_teacher_24).into(usertypeImg)
+        }
+        else{
+            Picasso.get().load(R.drawable.ic_student_24).into(usertypeImg)
+        }
     }
 
     override fun onBackPressed() {
@@ -231,8 +255,10 @@ class PerfilMain : AppCompatActivity() {
     }
 
     private fun addFriend() {
-        Log.d("friendCount", friendsCount.toString())
         userDB_ref.child("Users").child(mAuth.currentUser.uid).child("friends").child(uidS).setValue(uidS)
+    }
+    private fun removeFriend() {
+        userDB_ref.child("Users").child(mAuth.currentUser.uid).child("friends").child(uidS).removeValue()
     }
 
     private fun isFriend(){
@@ -240,6 +266,9 @@ class PerfilMain : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if(dataSnapshot.hasChild(uidS)){
                     username_tv.background = resources.getDrawable(R.drawable.rounded_corners_or)
+                    clickFollow = true
+                }else{
+                    username_tv.background = resources.getDrawable(R.drawable.rounded_corners_bl)
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {

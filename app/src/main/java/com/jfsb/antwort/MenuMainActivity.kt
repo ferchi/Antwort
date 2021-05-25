@@ -35,13 +35,15 @@ import com.jfsb.antwort.post.Utils.openProfile
     private lateinit var adapter: NavigationRVAdapter
 
     private var items = arrayListOf(
-            NavigationItemModel(R.drawable.ic_profile, "Perfil"),
-            NavigationItemModel(R.drawable.ic_people_24, "Amigos"),
-            NavigationItemModel(R.drawable.ic_person_search_24, "Explorar"),
-            NavigationItemModel(R.drawable.ic_movie, "---"),
-            NavigationItemModel(R.drawable.ic_book, "---"),
-            NavigationItemModel(R.drawable.ic_logout, "Salir"),
-            NavigationItemModel(R.drawable.ic_social, "Facebook")
+
+        NavigationItemModel(R.drawable.ic_profile, "Perfil"),
+        NavigationItemModel(R.drawable.ic_people_24, "Amigos"),
+        NavigationItemModel(R.drawable.ic_person_search_24, "Buscar"),
+        NavigationItemModel(R.drawable.ic_home_24, "Explorar"),
+        NavigationItemModel(R.drawable.ic_logout, "Salir")
+
+            //NavigationItemModel(R.drawable.ic_book, "---"),
+            //NavigationItemModel(R.drawable.ic_social, "Facebook")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,15 +90,16 @@ import com.jfsb.antwort.post.Utils.openProfile
                         startActivity(intent)
                     }
                     3 -> {
-                        // # Movies Fragment
-                        val bundle = Bundle()
-                        bundle.putString("fragmentName", "Movies Fragment")
-                        val moviesFragment = DemoFragment()
-                        moviesFragment.arguments = bundle
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.activity_main_content_id, moviesFragment).commit()
+                        // # Home Activity
+                        val intent = Intent(this@MenuMainActivity, HomeActivity::class.java)
+                        startActivity(intent)
                     }
                     4 -> {
+                        mAuth.signOut()
+                        startActivity(intentExit)
+                        finish()
+                    }
+                    5 -> {
                         // # Books Fragment
                         val bundle = Bundle()
                         bundle.putString("fragmentName", "Books Fragment")
@@ -104,11 +107,6 @@ import com.jfsb.antwort.post.Utils.openProfile
                         booksFragment.arguments = bundle
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.activity_main_content_id, booksFragment).commit()
-                    }
-                    5 -> {
-                        mAuth.signOut()
-                        startActivity(intentExit)
-                        finish()
                     }
                     6 -> {
                         // # Open URL in browser

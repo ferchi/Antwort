@@ -26,4 +26,13 @@
     <style name="customSwitch">
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
+
+    <style name="Theme.Antwort.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Antwort.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Antwort.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

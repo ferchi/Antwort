@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.card_post.view.*
 import java.text.SimpleDateFormat
 
 
-class PostAdapter (private val fragment: Fragment, private val dataset: List<Post>):RecyclerView.Adapter<PostAdapter.ViewHolder>(){
+class PostAdapter_Act (private val activity: AppCompatActivity, private val dataset: List<Post>):RecyclerView.Adapter<PostAdapter_Act.ViewHolder>(){
 
     class ViewHolder (val layout: View) : RecyclerView.ViewHolder(layout)
 
@@ -55,7 +54,7 @@ class PostAdapter (private val fragment: Fragment, private val dataset: List<Pos
             val doc = db.collection("post").document(post.uid!!)
 
             db.runTransaction{
-                 it.update(doc,"likes",likes)
+                it.update(doc,"likes",likes)
                 null
             }
         }
@@ -67,12 +66,12 @@ class PostAdapter (private val fragment: Fragment, private val dataset: List<Pos
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
-            fragment.startActivity(shareIntent)
+            activity.startActivity(shareIntent)
         }
     }
 
     private fun setColor(liked: Boolean, likeButton: Button){
-        if(liked) likeButton.setTextColor(ContextCompat.getColor(fragment.requireContext(),R.color.principal))
+        if(liked) likeButton.setTextColor(ContextCompat.getColor(activity.baseContext,R.color.principal))
         else likeButton.setTextColor(Color.BLACK)
     }
 }
